@@ -5,7 +5,12 @@ local mainBuffer = buffer.new(W,H,1,1,term.native())
 function createRedirectBuffer(w,h,x,y)
 	local buf = buffer.new(w,h,x,y,mainBuffer.tRedirect)
 	buffers[#buffers+1] = {buffer = buf,visible = true}
-	return buf.tRedirect,#buffers
+	local object = {id=#buffers,buffer=buf.tRedirect}
+	return object
+end
+
+function setVisibility(id,vis)
+	buffers[id].visible = vis
 end
 
 function render()

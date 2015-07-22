@@ -1,10 +1,18 @@
+function cWrite(text)
+	local x,y = term.getCursorPos()
+	term.setCursorPos((x/2)-(#text/2),y)
+	term.write(text)
+end
+
 term.setBackgroundColor(colors.lightGray)
 term.clear()
 term.setCursorPos(1,1)
 term.setTextColor(colors.black)
-term.write("HeliOS")
+utils.cWrite("HeliOS",term.current())
 print()
 print()
+
+
 
 local function read(mask,hist,normal,selected)
 	local continue = true
@@ -38,7 +46,11 @@ local function read(mask,hist,normal,selected)
 		term.setCursorPos(sX,sY)
 		if(#str==0) then
 			term.setTextColor(selected)
-			term.write("_")
+			if(continue) then
+				term.write("_")
+			else
+				term.write(" ")
+			end
 		else
 			for k,v in pairs(str) do
 				local sel = k == cursor
@@ -82,8 +94,8 @@ local function read(mask,hist,normal,selected)
 				redraw()
 			elseif(evt[2] == keys.enter) then
 				cursor = #str+1
-				redraw()
 				continue = false
+				redraw()
 			elseif(evt[2] == keys.up or evt[2] == keys.down) then
 				if(history) then
 					if(evt[2] == keys.up) then
@@ -123,6 +135,10 @@ while true do
 	write">"
 	local r	= read(nil,his,colors.black,colors.white)
 	table.insert(his,r)
-	os.queueEvent("notification",table.concat(r,""))
+	local str = table.concat(r,"")
+	if(str == "toggle") then
+		redirector.toggle("Bar")
+	end
+	os.queueEvent("notification",str)
 	print()
 end
