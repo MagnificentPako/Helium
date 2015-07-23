@@ -34,7 +34,7 @@ daemon.registerDaemon("Notification Receiver","Receives all the notifications",f
 	end
 end)
 
-notifications[1] = "Welcome to HeliOS!"
+notifications[1] = "Welcome to Helium!"
 
 while true do
 	if(#notifications>0) then

@@ -10,23 +10,23 @@ local function loadAPI(path,name)
 	_G[name] = env
 end
 
-loadAPI("helios/api/utils.lua","utils")
+loadAPI("helium/api/utils.lua","utils")
 
-loadAPI("helios/api/taskmanager.lua","taskmanager")
+loadAPI("helium/api/taskmanager.lua","taskmanager")
 
-loadAPI("helios/api/daemon.lua","daemon")
+loadAPI("helium/api/daemon.lua","daemon")
 
-loadAPI("helios/api/buffer.lua","buffer")
-loadAPI("helios/api/screenHandler.lua","screenHandler")
+loadAPI("helium/api/buffer.lua","buffer")
+loadAPI("helium/api/screenHandler.lua","screenHandler")
 
-loadAPI("helios/api/redirector.lua","redirector")
+loadAPI("helium/api/redirector.lua","redirector")
 
 local shellBuffer = screenHandler.createRedirectBuffer(51,18,1,2)
 
 local barBuffer = screenHandler.createRedirectBuffer(51,1,1,1)
 
-redirector.addProgram("helios/bin/test/mousedragtest.lua",shellBuffer.buffer,"Shell")
-redirector.addProgram("helios/bin/bar.lua",barBuffer.buffer,"Bar")
+redirector.addProgram("helium/bin/shell.lua",shellBuffer.buffer,"Shell")
+redirector.addProgram("helium/bin/bar.lua",barBuffer.buffer,"Bar")
 
 taskmanager.addRoutine(daemon.run)
 taskmanager.addRoutine(screenHandler.run)

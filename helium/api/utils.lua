@@ -1,20 +1,21 @@
-function cWrite(text)
-	local x,y = term.getCursorPos()
-	term.setCursorPos((x/2)-(#text/2),y)
-	term.write(text)
+function lookupify(t)
+	local tt = {}
+	for k,v in pairs(t) do
+		tt[v] = true
+	end
+	return tt
 end
 
-term.setBackgroundColor(colors.lightGray)
-term.clear()
-term.setCursorPos(1,1)
-term.setTextColor(colors.black)
-utils.cWrite("HeliOS",term.current())
-print()
-print()
+function cWrite(text,buffer)
+	b = buffer
+	local x,y = b.getCursorPos()
+	local w,h = b.getSize()
+	b.setCursorPos((w/2)-(#text/2),y)
+	b.write(text)
+end
 
-
-
-local function read(mask,hist,normal,selected)
+function read(buffer,mask,hist,normal,selected)
+	local term = buffer
 	local continue = true
 	local stopKey = keys.enter
 	local W,H = term.getSize()
@@ -126,19 +127,4 @@ local function read(mask,hist,normal,selected)
 		end
 	end
 	return str
-end
-
-local his = {}
-while true do
-	term.setTextColor(colors.black)
-	term.setBackgroundColor(colors.lightGray)
-	write">"
-	local r	= read(nil,his,colors.black,colors.white)
-	table.insert(his,r)
-	local str = table.concat(r,"")
-	if(str == "toggle") then
-		redirector.toggle("Bar")
-	end
-	os.queueEvent("notification",str)
-	print()
 end
