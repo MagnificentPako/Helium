@@ -5,7 +5,7 @@ local mainBuffer = buffer.new(W,H,1,1,term.native())
 function createRedirectBuffer(w,h,x,y)
 	local buf = buffer.new(w,h,x,y,mainBuffer.tRedirect)
 	buffers[#buffers+1] = {buffer = buf,visible = true}
-	local object = {id=#buffers,buffer=buf.tRedirect}
+	local object = {id=#buffers,buffer=buf}
 	return object
 end
 

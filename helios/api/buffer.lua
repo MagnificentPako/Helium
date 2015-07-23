@@ -179,6 +179,14 @@ function getSize (self)
     return self.nWidth, self.nHeight, self
 end
 ---------------------------------------------------------------------
+--VV THIS FUNCTION IS NOT FROM THE ORIGINAL API VV
+---------------------------------------------------------------------
+function getPosition (self)
+    return self.x, self.y, self 
+end
+---------------------------------------------------------------------
+--^^ THIS FUNCTION IS NOT FROM THE ORIGINAL API ^^
+---------------------------------------------------------------------
 function getCursorPos (self)
     return self.nCursorX, self.nCursorY, self
 end
