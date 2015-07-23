@@ -25,7 +25,7 @@ function run()
 		local evt = {coroutine.yield()}
 		local e = copy(evt)
 		for k,v in pairs(programs) do
-			if(evt[1] == "mouse_click") then
+			if(evt[1] == "mouse_click" or evt[1] == "mouse_drag") then
 				local x,y = v.buffer:getPosition()
 				e[3] = evt[3]-x+1
 				e[4] = evt[4]-y+1

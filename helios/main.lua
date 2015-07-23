@@ -25,7 +25,7 @@ local shellBuffer = screenHandler.createRedirectBuffer(51,18,1,2)
 
 local barBuffer = screenHandler.createRedirectBuffer(51,1,1,1)
 
-redirector.addProgram("helios/bin/mousetest.lua",shellBuffer.buffer,"Shell")
+redirector.addProgram("helios/bin/test/mousedragtest.lua",shellBuffer.buffer,"Shell")
 redirector.addProgram("helios/bin/bar.lua",barBuffer.buffer,"Bar")
 
 taskmanager.addRoutine(daemon.run)
