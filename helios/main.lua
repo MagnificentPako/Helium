@@ -25,7 +25,7 @@ local shellBuffer = screenHandler.createRedirectBuffer(51,18,1,2)
 
 local barBuffer = screenHandler.createRedirectBuffer(51,1,1,1)
 
-redirector.addProgram("helios/bin/shell.lua",shellBuffer.buffer,"Shell")
+redirector.addProgram("rom/programs/advanced/multishell",shellBuffer.buffer,"Shell")
 redirector.addProgram("helios/bin/bar.lua",barBuffer.buffer,"Bar")
 
 taskmanager.addRoutine(daemon.run)

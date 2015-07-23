@@ -2,7 +2,7 @@ local daemons = {}
 
 function registerDaemon(name,description,func)
 	local co = coroutine.create(func)
-	daemons[name] = {desc = description, routine = co,enabled = true}
+	daemons[name] = {desc = description, routine = co,enabled = true,filter = nil}
 end
 
 function disableDaemon(name)
@@ -25,7 +25,10 @@ function run()
 		local evt = {coroutine.yield()}
 		for k,v in pairs(daemons) do
 			if(v.enabled) then
-				coroutine.resume(v["routine"],unpack(evt))
+				if(evt[1] == "terminate" or evt[1] == v.filter or v.filter == nil) then
+					local ok, filter = coroutine.resume(v["routine"],unpack(evt))
+					v.filter = filter
+				end
 			end
 		end
 	end

@@ -5,9 +5,9 @@ userinput = utils.lookupify(userinput)
 
 function addProgram(path,buffer,name)
 	assert(fs.exists(path),"Nope.")
-	local f = loadfile(path)
+	local f = loadstring("os.run({},'"..path.."')")
 	local co = coroutine.create(f)
-	programs[name] = {name=name,routine=co,buffer=buffer,enabled=true}
+	programs[name] = {name=name,routine=co,buffer=buffer,enabled=true,filter=nil}
 end
 
 function toggle(name)
@@ -19,8 +19,11 @@ function run()
 		local evt = {coroutine.yield()}
 		for k,v in pairs(programs) do
 			if(v.enabled) then
-				term.redirect(v.buffer)
-				coroutine.resume(v.routine,unpack(evt))
+				if(evt[1] == "terminate" or v.filter == evt[1] or v.filter == nil) then
+					term.redirect(v.buffer)
+					local ok,filter = coroutine.resume(v.routine,unpack(evt))
+					v.filter = filter
+				end
 			end
 		end
 	end
