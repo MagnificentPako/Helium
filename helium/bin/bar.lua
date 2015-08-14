@@ -1,3 +1,11 @@
+local messages = {
+	"Welcome to Helium!",
+	"How are you?",
+	"This is not an OS, you know?",
+	"I like trains.",
+	"Helium doesn't react."
+}
+
 function slide(msg)
 	local s = msg
 	local l = s:len()
@@ -34,7 +42,7 @@ daemon.registerDaemon("Notification Receiver","Receives all the notifications",f
 	end
 end)
 
-notifications[1] = "Welcome to Helium!"
+notifications[1] = messages[math.random(#messages)]
 
 while true do
 	if(#notifications>0) then

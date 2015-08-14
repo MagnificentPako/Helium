@@ -6,12 +6,26 @@ function lookupify(t)
 	return tt
 end
 
+function copyTable(t)
+	local tt = {}
+	for k,v in pairs(t) do
+		tt[k] = v
+	end
+	return tt
+end
+
 function cWrite(text,buffer)
 	b = buffer
 	local x,y = b.getCursorPos()
 	local w,h = b.getSize()
 	b.setCursorPos((w/2)-(#text/2),y)
 	b.write(text)
+end
+
+function readonly(tbl)
+	local t = copyTable(tbl)
+	setmetatable(t,{__newindex = function() error("nope") end,__metatable={"false"}})
+	return t
 end
 
 function read(buffer,mask,hist,normal,selected)
